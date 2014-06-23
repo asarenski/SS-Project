@@ -9,6 +9,7 @@ import datetime
 from datetime import date
 from decimal import *
 import FRA_Table
+import Life_Table
 
 
 class Age_Calc():
@@ -78,8 +79,8 @@ def main():
     spouse_sex = "female"
 
     # dates date need to be in format yyyy, m, d.... ie) no 08
-    user_birth_date = date(1998, 06, 17)
-    spouse_birth_date = date(2000, 12, 31)
+    user_birth_date = date(1955, 06, 17)
+    spouse_birth_date = date(1960, 12, 31)
 
     user_ac = Age_Calc(user_birth_date)
     user_age = user_ac.age_calc()
@@ -117,6 +118,11 @@ def main():
     # FRA numbers
     fra_age_user = FRA_Table.main(user_birth_date)
     fra_age_spouse = FRA_Table.main(spouse_birth_date)
+
+    # life_table
+    life_table = Life_Table.main(user_sex, int(user_age))
+    user_life_expect = Decimal(life_table) + user_age
+    print user_life_expect
 
 
 main()
