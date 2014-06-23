@@ -7,6 +7,8 @@ Calculates the basic information used for the program.
 """
 import datetime
 from datetime import date
+from decimal import *
+import FRA_Table
 
 
 class Age_Calc():
@@ -31,7 +33,7 @@ class Age_Calc():
         """Calculates the age"""
         begin = self.birthdate
         end = self.today_calc()
-        age = float((end - begin).days / 365.25)
+        age = Decimal((end - begin).days) / Decimal(365.25)
         return age
 
     def six_two(self, age):
@@ -68,8 +70,12 @@ class Age_List():
            self.user_age_list.append(self.user_age+i+int(self.user_six_two))
            self.spouse_age_list.append(self.spouse_age+i+int(self.user_six_two))
 
-def basics_main():
-    """main function"""
+def main():
+    """sets up and organizes the lists"""
+
+    # sex
+    user_sex = "male"
+    spouse_sex = "female"
 
     # dates date need to be in format yyyy, m, d.... ie) no 08
     user_birth_date = date(1998, 06, 17)
@@ -108,5 +114,9 @@ def basics_main():
     seventy_spouse = 2500
     sixtytwo_spouse = 1200
 
+    # FRA numbers
+    fra_age_user = FRA_Table.main(user_birth_date)
+    fra_age_spouse = FRA_Table.main(spouse_birth_date)
 
-basics_main()
+
+main()
