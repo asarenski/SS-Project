@@ -9,8 +9,16 @@ import FRA_Table
 import csv
 
 def main(sex,age):
-    with open('Life_Table.ods', 'rb') as LT:
-        LTreader = csv.reader(LT, delimiter=' ', quotechar='|')
-        for row in LTreader:
-            print ', '.join(row)
-main('male', 65)
+    life_table = {}
+    if sex == "male":
+        sex = 1
+    else:
+        sex = 2
+    with open('Life_Table.csv', 'rb') as f:
+        reader = csv.reader(f)
+        # skips the header
+        reader.next()
+        for rows in reader:
+            life_table[rows[0]] = [rows[1],rows[2]]
+    life = life_table[str(age)]
+    return life[sex]
